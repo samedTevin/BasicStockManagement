@@ -4,10 +4,10 @@ public class Product {
     private String productName;
     private String brand;
     private String countryCode;
-    private int price;
+    private double price;
     private int stockQuantity;
 
-    public Product(String productName, String brand, String countryCode, int price, int stockQuantity){
+    public Product(String productName, String brand, String countryCode, double price, int stockQuantity){
         this.productName = productName;
         this.brand = brand;
         this.countryCode = countryCode;
@@ -50,7 +50,7 @@ public class Product {
         this.price = price;
     }
 
-    public int getPrice(){
+    public double getPrice(){
         return price;
     }
 

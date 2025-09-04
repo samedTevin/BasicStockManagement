@@ -5,30 +5,34 @@ public class InventoryManager {
 
     Connection connection;
     DbHelper dbHelper = new DbHelper();
-    Statement statement;
-    PreparedStatement preparedStatement;
+    Statement statement ;
+    PreparedStatement preparedStatement ;
     ResultSet resultSet;
     Scanner scanner = new Scanner(System.in);
+    ProductInputHandler productInputHandler;
+    Product product;
 
     public InventoryManager(){
         try {
             connection = dbHelper.getConnection();
-            statement = connection.createStatement();
+            productInputHandler = new ProductInputHandler();
         } catch (SQLException exception) {
             dbHelper.showError(exception);
         }
     }
 
-    public void addProduct(Product product) throws SQLException{
+    public void addProduct() throws SQLException{
 
         try{
             String sql = "INSERT INTO product (product_name,brand,country_code,price,stock_quantity) VALUES (?,?,?,?,?)";
+
+            product = productInputHandler.getProductForAdd();
 
             preparedStatement = connection.prepareStatement(sql);
             preparedStatement.setString(1,product.getProductName());
             preparedStatement.setString(2,product.getBrand());
             preparedStatement.setString(3,product.getCountryCode());
-            preparedStatement.setInt(4,product.getPrice());
+            preparedStatement.setDouble(4,product.getPrice());
             preparedStatement.setInt(5,product.getStockQuantity());
             int result = preparedStatement.executeUpdate();
             System.out.println("Product has been inserted : " + result + " product has been affected.");
@@ -46,12 +50,9 @@ public class InventoryManager {
     public void removeProduct() throws SQLException{
         try{
             String sql = "DELETE FROM product WHERE id=?";
-            int id;
-            preparedStatement = connection.prepareStatement(sql);
 
-            System.out.print("Enter the id of the product : ");
-            id = scanner.nextInt();
-            preparedStatement.setInt(1,id);
+            preparedStatement = connection.prepareStatement(sql);
+            preparedStatement.setInt(1,productInputHandler.getId());
             int result = preparedStatement.executeUpdate();
             System.out.println("Product has been deleted : " + result + " product has been affected.");
         }
@@ -64,23 +65,21 @@ public class InventoryManager {
         }
     }
 
-    public void updateProduct(Product product) throws SQLException{
+    public void updateProduct() throws SQLException{
         try{
             String sql = "UPDATE product SET product_name=?,brand=?,country_code=?,price=?,stock_quantity=? WHERE id = ?";
             int result;
-            int id;
 
-            System.out.print("Enter the id of the product : ");
-            id = scanner.nextInt();
+            product = productInputHandler.getProductForUpdate();
 
             preparedStatement = connection.prepareStatement(sql);
 
             preparedStatement.setString(1,product.getProductName());
             preparedStatement.setString(2,product.getBrand());
             preparedStatement.setString(3,product.getCountryCode());
-            preparedStatement.setInt(4,product.getPrice());
+            preparedStatement.setDouble(4,product.getPrice());
             preparedStatement.setInt(5,product.getStockQuantity());
-            preparedStatement.setInt(6,id);
+            preparedStatement.setInt(6,productInputHandler.getId());
             result = preparedStatement.executeUpdate();
 
             System.out.println("Product has been updated : " + result + " product has been affected.");
@@ -89,13 +88,14 @@ public class InventoryManager {
             dbHelper.showError(exception);
         }
         finally {
-            preparedStatement.close();
-            connection.close();
+            if(preparedStatement != null) preparedStatement.close();
+            if(connection != null) connection.close();
         }
     }
 
     public void listProducts() throws SQLException {
         try{
+            statement = connection.createStatement();
             resultSet = statement.executeQuery("SELECT id,product_name,brand,country_code,price,stock_quantity FROM product");
             while(resultSet.next()){
                 System.out.println(

@@ -7,14 +7,19 @@ public class Main {
 
         CategoryManager categoryManager = new CategoryManager();
 
-        //manager.listProducts();
+        SupplierManager supplierManager = new SupplierManager();
 
-        //manager.addProduct(ProductValidator.validateAddProduct());
+        // manager.listProducts();
+
+        //manager.addProduct(); Works
 
         // manager.removeProduct();
 
-        // manager.updateProduct(ProductValidator.validateUpdateProduct());
+        // manager.updateProduct();
 
-        categoryManager.listCategory();
+        //supplierManager.addSupplier();
+        //supplierManager.listSuppliers();
+        //supplierManager.removeSupplier();
+        //supplierManager.updateSupplier();
     }
 }
