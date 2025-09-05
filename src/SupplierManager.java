@@ -40,8 +40,8 @@ public class SupplierManager {
             dbHelper.showError(exception);
         }
         finally{
-            preparedStatement.close();
-            connection.close();
+            if(preparedStatement != null) preparedStatement.close();
+            if(connection != null) connection.close();
         }
 
     }
@@ -85,8 +85,8 @@ public class SupplierManager {
             dbHelper.showError(exception);
         }
         finally{
-            preparedStatement.close();
-            connection.close();
+            if(preparedStatement != null) preparedStatement.close();
+            if(connection != null) connection.close();
         }
     }
     public void listSuppliers() throws SQLException {
@@ -96,10 +96,10 @@ public class SupplierManager {
             resultSet = statement.executeQuery(sql);
             while(resultSet.next()){
                 System.out.println(
-                        resultSet.getInt("id") +
-                        resultSet.getString("supplier_name") +
-                        resultSet.getString("address") +
-                        resultSet.getString("phone_num") +
+                        resultSet.getInt("id") + " " +
+                        resultSet.getString("supplier_name") + " " +
+                        resultSet.getString("address") + " " +
+                        resultSet.getString("phone_num") + " " +
                         resultSet.getString("email")
                 );
             }
@@ -108,8 +108,8 @@ public class SupplierManager {
             dbHelper.showError(exception);
         }
         finally{
-            statement.close();
-            connection.close();
+            if(statement != null) statement.close();
+            if(connection != null) connection.close();
         }
     }
 }

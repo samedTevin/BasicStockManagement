@@ -23,19 +23,19 @@ public class CategoryManager {
 
         try{
             int result;
-            String sql = "INSERT INTO category(name) VALUES(?)";
+            String sql = "INSERT INTO category(category_name) VALUES(?)";
             preparedStatement = connection.prepareStatement(sql);
             category = categoryInputHandler.getCategoryForAdd();
             preparedStatement.setString(1,category.getName() );
             result = preparedStatement.executeUpdate();
-            System.out.println("Category has been deleted : " + result + " category has been affected.");
+            System.out.println("Category has been inserted : " + result + " category has been affected.");
         }
         catch(SQLException exception){
             dbHelper.showError(exception);
         }
         finally{
-            preparedStatement.close();
-            connection.close();
+            if(preparedStatement != null) preparedStatement.close();
+            if(preparedStatement != null) connection.close();
         }
 
     }
@@ -54,14 +54,14 @@ public class CategoryManager {
             dbHelper.showError(exception);
         }
         finally{
-            preparedStatement.close();
-            connection.close();
+            if(preparedStatement !=null) preparedStatement.close();
+            if(connection !=null) connection.close();
         }
     }
 
     public void updateCategory() throws SQLException{
         try{
-            String sql = "UPDATE category SET name=? WHERE id=?";
+            String sql = "UPDATE category SET category_name=? WHERE id=?";
             int result;
 
             category = categoryInputHandler.getCategoryForUpdate();
@@ -77,8 +77,8 @@ public class CategoryManager {
             dbHelper.showError(exception);
         }
         finally{
-            preparedStatement.close();
-            connection.close();
+            if(preparedStatement != null) preparedStatement.close();
+            if (connection != null) connection.close();
         }
     }
 
@@ -88,7 +88,7 @@ public class CategoryManager {
             resultSet = statement.executeQuery("SELECT id,category_name FROM Category");
             while(resultSet.next()){
                 System.out.println(
-                        resultSet.getInt("id") +
+                        resultSet.getInt("id") + " " +
                         resultSet.getString("category_name")
                 );
             }
@@ -97,8 +97,8 @@ public class CategoryManager {
             dbHelper.showError(exception);
         }
         finally {
-            statement.close();
-            connection.close();
+            if(statement != null) statement.close();
+            if(connection != null) connection.close();
         }
     }
 }

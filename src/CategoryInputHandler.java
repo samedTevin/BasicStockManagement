@@ -8,7 +8,7 @@ public class CategoryInputHandler {
     private Category category;
 
     public Category getCategoryForAdd(){
-        System.out.print("Enter product name: ");
+        System.out.print("Enter the new Category name: ");
         name = scanner.nextLine();
         category = new Category(name);
         return category;
@@ -16,14 +16,14 @@ public class CategoryInputHandler {
 
 
     public Category getCategoryForUpdate(){
-        System.out.print("Enter the new product name: ");
+        System.out.print("Enter the new Category name: ");
         name = scanner.nextLine();
         category = new Category(name);
         return category;
     }
 
     public int getId(){
-        System.out.print("Enter the product id: ");
+        System.out.print("Enter the Category id: ");
         id = scanner.nextInt();
         return id;
     }

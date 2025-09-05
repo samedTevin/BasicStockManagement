@@ -41,8 +41,8 @@ public class InventoryManager {
             dbHelper.showError(exception);
         }
         finally{
-            statement.close();
-            connection.close();
+            if(preparedStatement != null) preparedStatement.close();
+            if(connection != null) connection.close();
         }
 
     }
@@ -60,8 +60,8 @@ public class InventoryManager {
             dbHelper.showError(exception);
         }
         finally{
-            statement.close();
-            connection.close();
+            if(preparedStatement != null) preparedStatement.close();
+            if(connection != null) connection.close();
         }
     }
 
@@ -99,11 +99,11 @@ public class InventoryManager {
             resultSet = statement.executeQuery("SELECT id,product_name,brand,country_code,price,stock_quantity FROM product");
             while(resultSet.next()){
                 System.out.println(
-                        resultSet.getString("id") +
-                        resultSet.getString("product_name") +
-                        resultSet.getString("brand") +
-                        resultSet.getString("country_code") +
-                        resultSet.getDouble("price") +
+                        resultSet.getString("id") + " " +
+                        resultSet.getString("product_name") + " " +
+                        resultSet.getString("brand") + " " +
+                        resultSet.getString("country_code") + " " +
+                        resultSet.getDouble("price") + " " +
                         resultSet.getInt("stock_quantity")
                 );
             }
@@ -112,7 +112,8 @@ public class InventoryManager {
             dbHelper.showError(exception);
         }
         finally {
-            connection.close();
+            if(statement !=null) statement.close();
+            if(connection != null)connection.close();
         }
     }
 
