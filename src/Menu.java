@@ -1,4 +1,5 @@
 import java.sql.SQLException;
+import java.util.InputMismatchException;
 import java.util.Scanner;
 
 public class Menu {
@@ -12,7 +13,7 @@ public class Menu {
 
         int choice = 0;
 
-        while(choice != 9){
+        while (choice != 9) {
             System.out.println("\n\n");
 
             System.out.println("---------------------------------------------------------");
@@ -29,11 +30,11 @@ public class Menu {
             System.out.println("|                                                       |");
             System.out.println("---------------------------------------------------------");
 
-            System.out.print("\n\nEnter your choice:");
-            choice = scanner.nextInt();
-            System.out.println("\n");
 
-            switch(choice){
+            choice = Validator.validateInput();
+
+
+            switch (choice) {
                 case 1:
                     displayCategoryMenu();
                     break;
@@ -50,18 +51,19 @@ public class Menu {
             }
 
 
-
         }
     }
 
 
     public static void displayCategoryMenu() throws SQLException {
-
+        if (categoryManager == null) {
+            categoryManager = new CategoryManager(); // Create only once
+        }
 
         int choice = 0;
 
-        while(choice != 9){
-            categoryManager = new CategoryManager();
+        while (choice != 9) {
+
             System.out.println("\n\n");
             System.out.println("---------------------------------------------------------");
             System.out.println("********************|Category Menu|**********************");
@@ -75,18 +77,18 @@ public class Menu {
             System.out.println("|                                                       |");
             System.out.println("|             [4] Update Category                       |");
             System.out.println("|                                                       |");
-            System.out.println("|             [9]  EXIT                                 |");
+            System.out.println("|             [9] Return Main Menu                      |");
             System.out.println("|                                                       |");
             System.out.println("---------------------------------------------------------");
 
-            System.out.print("\n\nChoose an option: ");
-            choice = scanner.nextInt();
-            System.out.println("\n");
+            choice = Validator.validateInput();
 
 
-            switch(choice){
+            switch (choice) {
                 case 1:
+                    System.out.println("--------------------Category List--------------------");
                     categoryManager.listCategory();
+                    System.out.println("-----------------------------------------------------");
                     break;
                 case 2:
                     categoryManager.addCategory();
@@ -107,13 +109,13 @@ public class Menu {
     }
 
     public static void displaySupplierMenu() throws SQLException {
-
-
+        if (supplierManager == null) {
+            supplierManager = new SupplierManager(); // Create only once
+        }
 
         int choice = 0;
 
-        while(choice != 9){
-            supplierManager = new SupplierManager();
+        while (choice != 9) {
             System.out.println("\n\n");
             System.out.println("---------------------------------------------------------");
             System.out.println("********************|Supplier Menu|**********************");
@@ -127,16 +129,19 @@ public class Menu {
             System.out.println("|                                                       |");
             System.out.println("|             [4] Update Supplier                       |");
             System.out.println("|                                                       |");
-            System.out.println("|             [9]  EXIT                                 |");
+            System.out.println("|             [9] Return Main Menu                      |");
             System.out.println("|                                                       |");
             System.out.println("---------------------------------------------------------");
 
-            System.out.print("\n\nChoose an option: ");
-            choice = scanner.nextInt();
-            System.out.println("\n");
-            switch(choice){
+
+            choice = Validator.validateInput();
+
+
+            switch (choice) {
                 case 1:
+                    System.out.println("--------------------Supplier List--------------------");
                     supplierManager.listSuppliers();
+                    System.out.println("-----------------------------------------------------");
                     break;
                 case 2:
                     supplierManager.addSupplier();
@@ -157,9 +162,12 @@ public class Menu {
     }
 
     public static void displayProductMenu() throws SQLException {
-        int choice = 0;
-        while(choice != 9){
+        if (inventoryManager == null) {
             inventoryManager = new InventoryManager();
+        }
+        int choice = 0;
+
+        while (choice != 9) {
             System.out.println("\n\n");
             System.out.println("---------------------------------------------------------");
             System.out.println("********************|Product Menu|***********************");
@@ -173,15 +181,19 @@ public class Menu {
             System.out.println("|                                                       |");
             System.out.println("|             [4] Update Product                        |");
             System.out.println("|                                                       |");
-            System.out.println("|             [9]  EXIT                                 |");
+            System.out.println("|             [9] Return Main Menu                      |");
             System.out.println("|                                                       |");
             System.out.println("---------------------------------------------------------");
 
-            System.out.print("\n\nChoose an option: ");
-            choice = scanner.nextInt();
-            switch(choice){
+
+            choice = Validator.validateInput();
+
+
+            switch (choice) {
                 case 1:
+                    System.out.println("--------------------Product List--------------------");
                     inventoryManager.listProducts();
+                    System.out.println("-----------------------------------------------------");
                     break;
                 case 2:
                     inventoryManager.addProduct();
@@ -201,7 +213,7 @@ public class Menu {
         }
     }
 
-    public static void exit(){
+    public static void exit() {
 
         System.out.println("\n\n");
         System.out.println("---------------------------------------------------------");

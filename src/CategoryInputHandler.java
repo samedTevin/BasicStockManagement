@@ -1,3 +1,5 @@
+import java.sql.SQLException;
+import java.util.InputMismatchException;
 import java.util.Scanner;
 
 public class CategoryInputHandler {
@@ -7,7 +9,7 @@ public class CategoryInputHandler {
     private String name;
     private Category category;
 
-    public Category getCategoryForAdd(){
+    public Category getCategoryForAdd() {
         System.out.print("Enter the new Category name: ");
         name = scanner.nextLine();
         category = new Category(name);
@@ -15,16 +17,29 @@ public class CategoryInputHandler {
     }
 
 
-    public Category getCategoryForUpdate(){
+    public Category getCategoryForUpdate() {
         System.out.print("Enter the new Category name: ");
         name = scanner.nextLine();
         category = new Category(name);
         return category;
     }
 
-    public int getId(){
-        System.out.print("Enter the Category id: ");
-        id = scanner.nextInt();
+    public int getId() {
+
+        int id = 0;
+        boolean flag = true;
+
+        while (flag) {
+            try {
+                System.out.print("Enter the Category id: ");
+                id = scanner.nextInt();
+                break;
+            } catch (InputMismatchException e) {
+                System.out.println("Invalid Input");
+                scanner.nextLine();
+            }
+        }
+
         return id;
     }
 

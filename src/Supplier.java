@@ -6,46 +6,46 @@ public class Supplier {
     private String phoneNum;
     private String email;
 
-    public Supplier(String name, String address, String phoneNum, String email){
+    public Supplier(String name, String address, String phoneNum, String email) {
         this.name = name;
         this.address = address;
-        this.phoneNum =phoneNum;
+        this.phoneNum = phoneNum;
         this.email = email;
     }
 
-    public int getId(){
+    public int getId() {
         return id;
     }
 
-    public void setName(String name){
+    public void setName(String name) {
         this.name = name;
     }
 
-    public String getName(){
+    public String getName() {
         return name;
     }
 
-    public void setAddress(String address){
+    public void setAddress(String address) {
         this.address = address;
     }
 
-    public String getAddress(){
+    public String getAddress() {
         return address;
     }
 
-    public void setPhoneNum(String phoneNum){
+    public void setPhoneNum(String phoneNum) {
         this.phoneNum = phoneNum;
     }
 
-    public String getPhoneNum(){
+    public String getPhoneNum() {
         return phoneNum;
     }
 
-    public void setEmail(String email){
+    public void setEmail(String email) {
         this.email = email;
     }
 
-    public String getEmail(){
+    public String getEmail() {
         return email;
     }
 

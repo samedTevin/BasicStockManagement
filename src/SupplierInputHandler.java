@@ -1,4 +1,6 @@
+import java.util.InputMismatchException;
 import java.util.Scanner;
+
 public class SupplierInputHandler {
 
     Scanner scanner = new Scanner(System.in);
@@ -9,7 +11,7 @@ public class SupplierInputHandler {
     private String phoneNum;
     private String email;
 
-    public Supplier getSupplierForAdd(){
+    public Supplier getSupplierForAdd() {
         System.out.print("Enter Supplier's Name: ");
         name = scanner.nextLine();
         System.out.print("Enter Supplier'S Address: ");
@@ -19,11 +21,12 @@ public class SupplierInputHandler {
         System.out.print("Enter Supplier's Email: ");
         email = scanner.nextLine();
 
-        supplier = new Supplier(name,address,phoneNum,email);
+        supplier = new Supplier(name, address, phoneNum, email);
+
         return supplier;
     }
 
-    public Supplier getSupplierForUpdate(){
+    public Supplier getSupplierForUpdate() {
         System.out.print("Enter the new Supplier's Name: ");
         name = scanner.nextLine();
         System.out.print("Enter the new Supplier's Address: ");
@@ -33,15 +36,28 @@ public class SupplierInputHandler {
         System.out.print("Enter the new Supplier's Email: ");
         email = scanner.nextLine();
 
-        supplier = new Supplier(name,address,phoneNum,email);
+        supplier = new Supplier(name, address, phoneNum, email);
 
         return supplier;
     }
 
-    public int getId(){
-        int id;
-        System.out.print("Enter Supplier's Id: ");
-        id = scanner.nextInt();
+    public int getId() {
+
+        int id = 0;
+        boolean flag = true;
+
+        while (flag) {
+            try {
+                System.out.print("Enter Supplier's Id: ");
+                id = scanner.nextInt();
+                break;
+            } catch (InputMismatchException e) {
+                System.out.println("Invalid Input");
+                scanner.nextLine();
+            }
+        }
+
+
         return id;
     }
 }
